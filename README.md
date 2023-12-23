@@ -5,9 +5,10 @@ Original JS script: https://pastebin.com/tRETy3yZ
 
 Usage example:
 ```python
+import requests
+
 from models import Challenge, Algorithm
 from pow_solver import LestaPowSolver
-import requests
 
 # Make an API call to get the PoW challenge
 # Referer must be this one, site doesnt accept any other
@@ -18,6 +19,7 @@ HEADERS = {
 response = requests.get("https://lesta.ru/id/signin/challenge/?type=pow", headers=HEADERS).json()
 
 # Create a Challenge object
+
 POW = Challenge(
     algorithm=Algorithm(**response["pow"]["algorithm"]),
     complexity=response["pow"]["complexity"],
@@ -28,6 +30,5 @@ POW = Challenge(
 
 # Initialize the solver and solve the challenge
 solver = LestaPowSolver(POW)
-solution = solver.solve_challenge()
-print(solution)
+print(solver.solve_challenge())
 ```
